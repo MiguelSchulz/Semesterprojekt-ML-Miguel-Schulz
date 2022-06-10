@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 if __name__ == '__main__':
     # Use FileReader to import the training and testing data
     train_data = FileReader.import_data(
-        "/Users/miguelschulz/PycharmProjects/pythonProject/training.txt"
+        "training.txt"
     )
     test_data  = FileReader.import_data(
-        "/Users/miguelschulz/Documents/Private Projects .nosync/Semesterprojekt Uni ML/Data/testing.txt"
+        "testing.txt"
     )
 
     # Slice array to separate features and classification
@@ -57,16 +57,6 @@ if __name__ == '__main__':
     DataVisualizer.print_spacer()
     print(f"Model reached accuracy of {final_accuracy*100} % for predicting unknown data")
 
-    accuracy_over_k = np.empty((0, 2), float)  # array for the accuracy per k
-    for a in range(1, 32, 2):  # for every possible k in 1 to 31
-        knn = KNearestNeighbor(k=a)
-        knn.train(train_x, train_y)
-        y_pred = knn.predict(test_x)
-        accuracy_over_k = np.append(accuracy_over_k, np.array([[a, sum(y_pred == test_y) / test_y.shape[0]]]), axis=0)
-
-    plt.plot(accuracy_over_k[:, 0], accuracy_over_k[:, 1])
-
-    plt.xlabel("k")
-    plt.ylabel("Accuracy")
-
-    plt.show()
+    # Uncomment to predict the testing data with all k in range 1 to 31.
+    # WARNING: Should NOT be used to find the right k, as this relies on the testing data!
+    # DataVisualizer.plot_all_testing_ks(train_x, train_y, test_x, test_y)

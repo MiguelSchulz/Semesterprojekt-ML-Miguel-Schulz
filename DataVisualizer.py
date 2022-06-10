@@ -1,6 +1,7 @@
 import numpy as np
 import DataUtility
 import matplotlib.pyplot as plt
+from KNearestNeighbor import KNearestNeighbor
 
 def print_spacer():
     print("-----------------------------------------")
@@ -115,4 +116,19 @@ def compare_boxplots(data1, data2):
 
     ax[0].title.set_text("Infiziert")
     ax[1].title.set_text("Nicht-infiziert")
+    plt.show()
+
+def plot_all_testing_ks(train_x, train_y, test_x, test_y):
+    accuracy_over_k = np.empty((0, 2), float)  # array for the accuracy per k
+    for a in range(1, 32, 2):  # for every possible k in 1 to 31
+        knn = KNearestNeighbor(k=a)
+        knn.train(train_x, train_y)
+        y_pred = knn.predict(test_x)
+        accuracy_over_k = np.append(accuracy_over_k, np.array([[a, sum(y_pred == test_y) / test_y.shape[0]]]), axis=0)
+
+    plt.plot(accuracy_over_k[:, 0], accuracy_over_k[:, 1])
+
+    plt.xlabel("k")
+    plt.ylabel("Accuracy")
+
     plt.show()
