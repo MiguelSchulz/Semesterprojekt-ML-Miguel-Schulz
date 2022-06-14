@@ -14,8 +14,8 @@ def analyze_basic_data(train_data):
 
     all_infected = train_data[np.where(train_data[:, 0] == 1)]
     all_healthy = train_data[np.where(train_data[:, 0] == -1)]
-    all_males = train_data[np.where(train_data[:, 2] == 1)]
-    all_females = train_data[np.where(train_data[:, 2] == 0)]
+    all_males = train_data[np.where(train_data[:, 2] == 0)]
+    all_females = train_data[np.where(train_data[:, 2] == 1)]
 
     print(f"{len(all_healthy)} healthy and {len(all_infected)} infected in Training Data")
     print(f"{len(all_males)} are male and {len(all_females)} are female")
